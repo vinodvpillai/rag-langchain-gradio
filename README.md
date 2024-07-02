@@ -19,6 +19,7 @@ This project demonstrates a sophisticated question-answering (Q&A) chatbot using
 - **Interface:** `Gradio`
 
 ## Project Structure
+```
 .
 ├── app.py
 ├── loaders
@@ -37,7 +38,7 @@ This project demonstrates a sophisticated question-answering (Q&A) chatbot using
 ├── chains
 │ └── retrieval_chain.py
 └── data
-
+```
 
 ## Setup Instructions
 

@@ -7,7 +7,7 @@ from prompts.templates import get_prompt_template
 
 def create_my_chain():
     vectorstore = load_vectorstore()
-    retriever = vectorstore.as_retriever()
+    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 6})
     llm = load_llm()
     prompt = get_prompt_template()
     doc_chain = create_stuff_documents_chain(llm, prompt)

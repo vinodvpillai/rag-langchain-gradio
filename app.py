@@ -27,23 +27,33 @@ def ask_question(question):
 
 def clear_data():
     dirpath = VECTOR_STORE_DB_PATH
+    filepath = "data"
     if os.path.exists(dirpath):
         shutil.rmtree(dirpath)
         os.makedirs(dirpath)
+    if os.path.exists(filepath):
+        shutil.rmtree(filepath)
+        os.makedirs(filepath)
     return "Vector database cleared."
 
 with gr.Blocks() as demo:
     with gr.Tab("Upload Document"):
-        file_input = gr.File(label="Upload your document (PDF, DOCX, TXT)")
+        file_input = gr.File(label="Upload your document (PDF, DOCX, XLSX, TXT)")
         file_output = gr.Textbox(label="Upload Status")
         upload_button = gr.Button("Upload")
         upload_button.click(process_document, inputs=[file_input], outputs=file_output)
     
     with gr.Tab("Ask Question"):
-        question_input = gr.Textbox(label="Your question")
-        ask_button = gr.Button("Ask")
-        answer_output = gr.Textbox(label="Answer")
-        ask_button.click(ask_question, inputs=[question_input], outputs=answer_output)
+        chatbot = gr.Chatbot()
+        msg = gr.Textbox()
+        clear = gr.ClearButton([msg, chatbot])
+
+        def respond(message, chat_history):
+            bot_message = ask_question(message)
+            chat_history.append((message, bot_message))
+            return "", chat_history
+
+        msg.submit(respond, [msg, chatbot], [msg, chatbot])
     
     with gr.Tab("Clear"):
         clear_output = gr.Textbox(label="Clear Status")
@@ -51,4 +61,8 @@ with gr.Blocks() as demo:
         clear_button.click(clear_data, outputs=clear_output)
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True)
+
+
+# Testing the application:
+# Excel: For Instance Size m7g.xlarge what is EBS bandwidth

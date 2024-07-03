@@ -4,7 +4,7 @@ This project demonstrates a sophisticated question-answering (Q&A) chatbot using
 
 ## Features
 
-- Allows users to upload files (TXT, PDF, DOCX)
+- Allows users to upload files (TXT, PDF, DOCX, XLSX)
 - Processes and stores document content in a vector database using FAISS
 - Enables users to ask questions based on the uploaded document content
 - Provides a feature to clear the existing data from the vector database
